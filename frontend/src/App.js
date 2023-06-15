@@ -8,12 +8,14 @@ import Post from './Component/Post';
 
 
 
+
 function App() {
 
   let [data , setData] = useState([])
 
   const fetchData = async () => {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    let url = "http://localhost:3000/posts";
+    const response = await axios.get(url);
     setData(response.data);
   };
 

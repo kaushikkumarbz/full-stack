@@ -1,22 +1,21 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import About from './Pages/About';
-import Home from './Pages/Home';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
-import { useEffect, useState } from 'react';
-import Post from './Component/Post';
-
-
-
+import { useEffect, useState } from "react";
+import Post from "./Component/Post";
 
 function App() {
-
-  let [data , setData] = useState([])
+  let [data, setData] = useState([]);
 
   const fetchData = async () => {
-    let url = "http://localhost:3000/posts";
-    const response = await axios.get(url);
-    setData(response.data);
+    try {
+      let url = "http://localhost:3000/posts";
+      const response = await axios.get(url);
+      setData(response.data.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
   };
 
   useEffect(() => {
@@ -24,18 +23,22 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-        {
-            data.map( (post, index) =>{
-              return  <Post userId={post.userId}  id ={post.id} title={post.title} body={post.body} />
-            })
-        }
+    <div className="App container">
+      {data.map((post, index) => {
+        return (
+          <Post
+            userId={post.userId}
+            id={post.id}
+            title={post.title}
+            body={post.body}
+          />
+        );
+      })}
     </div>
   );
 }
 
 export default App;
-
 
 /*
 

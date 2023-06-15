@@ -9,9 +9,10 @@ function App() {
 
   const fetchData = async () => {
     try {
-      let url = "http://localhost:3000/posts";
+      let url = "https://restcountries.com/v3.1/all";
       const response = await axios.get(url);
-      setData(response.data.data);
+      console.log(response)
+      setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -24,16 +25,11 @@ function App() {
 
   return (
     <div className="App container">
-      {data.map((post, index) => {
-        return (
-          <Post
-            userId={post.userId}
-            id={post.id}
-            title={post.title}
-            body={post.body}
-          />
-        );
-      })}
+     {
+      data.map((ele, ind)=>{
+        return <div >{ele.name.official} {ele.flag}</div>
+      })
+     }
     </div>
   );
 }
